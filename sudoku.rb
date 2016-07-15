@@ -69,24 +69,50 @@ print pretty_board(board_scan(board))
 
 # p solve(board)
 
-def return_row(board, number)
-  row = []
-  row_num = number.to_i / 9
-  board.each_char.with_index do |num, i|
-    if i / 9 == row_num
-      row << num
-    end
-  end
-  row
-end
+# THIS SHOULD BE REDUNDANT w/ THE OTHER CODE,
+# JUST HERE FOR TESTING
 
-def return_col(board, number)
-  col = []
-  col_num = number.to_i % 9
-  board.each_char.with_index do |num, i|
-    if i % 9 == col_num
-      col << num
+  def return_row(board, number)
+    row = []
+    row_num = row(number)
+    board.each_char.with_index do |num, i|
+      if i / 9 == row_num
+        row << num
+      end
     end
+    row
   end
-  col
-end
+
+  def return_col(board, number)
+    col = []
+    col_num = col(number)
+    board.each_char.with_index do |num, i|
+      if i % 9 == col_num
+        col << num
+      end
+    end
+    col
+  end
+
+  def col(num)
+    num.to_i % 9
+  end
+
+  def row(num)
+    num.to_i / 9
+  end
+
+  def box_xy(number)
+    [row(number)/3, col(number)/3]
+  end
+
+  def return_box(board, number)
+    box=[]
+    source_box = box_xy(number)
+    board.each_char.with_index do |num, i|
+      if box_xy(i) == source_box
+        box << num
+      end
+    end
+    box
+  end
